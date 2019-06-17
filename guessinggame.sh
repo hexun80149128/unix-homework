@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
 # File: guessinggame.sh
 
-correct=$(ls |wc -l)
+correct=$(find . -maxdepth 1 ! -type d | wc -l)
 
 function judge {
-  if [[ $input -eq $correct ]]
+  if [[ "$input" =~ ^[1-9]+$ ]] 
   then
-  	echo "Congratulations ,the answer is $input"
+    if [[ $input -eq $correct ]]
+    then
+      echo "Congratulations ,the answer is $input"
+    else
+      if [[ $input -gt $correct ]]
+      then
+        echo "Sorry,the answer is too high"
+      else
+        echo "Sorry,the answer is too low"
+      fi
+    fi
   else
-  	if [[ $input -gt $correct ]]
-  	then
-  		echo "Sorry,the answer is too high"
-  	else
-  		echo "Sorry,the answer is too low"
-  	fi
+    input=0
+    echo "Sorry,the answer is a digit"
   fi
+
 }
 
 while [[ $correct -ne $input ]]

@@ -1,6 +1,7 @@
-proname=$(basename `pwd`)
-echo "The title of the project is $proname" > README.md
-now=$(date +"%T %m-%d")
-echo "Make was run at $now " >> README.md
-number=$(wc -l guessinggame.sh | egrep -o "[0-9]+")
-echo "The number of lines of code contained in guessinggame.sh is $number" >> README.md
+README.md:
+	touch README.md
+	echo "The title of the project is $$( basename `pwd`)" > README.md
+	echo "Make was run at $$( date +"%T %m-%d") " >> README.md
+	echo "The number of lines of code contained in guessinggame.sh is $$( wc -l guessinggame.sh | egrep -o "[0-9]+")" >> README.md
+clean:
+	rm README.md
